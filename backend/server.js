@@ -1,5 +1,5 @@
 const express = require('express')
-const products = require('./data/product')
+const products = require('./data/products')
 
 const app = express();
 app.get('/api/products', (req, res) => {
