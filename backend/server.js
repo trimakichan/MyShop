@@ -1,7 +1,14 @@
 import express from 'express';
-import products from './data/products'
+import dotenv from 'dotenv'
+// Syntacs are almost the same but you have to add .js in the backend folder. 
+import products from './data/products.js'
+import connectDB from './config/db.js';
 
 const app = express();
+// dotenv.config() allows us to connect to the .env file.
+dotenv.config();
+connectDB();
+
 app.get('/api/products', (req, res) => {
     res.json(products)
 })
