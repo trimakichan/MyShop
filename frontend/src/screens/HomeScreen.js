@@ -11,7 +11,7 @@ import Loader from '../components/Loader'
 const HomeScreen = () => {
 
 const dispatch = useDispatch()
-//? how does it know state is from the store because we didn't import store here. Is state looking at the combine reducers?
+//We pass store in  index.js so that is why state is looking at the store 
 const productList = useSelector((state) => state.productList) //state is entire data in store.js.
 const {loading, error, products} = productList
 
@@ -28,7 +28,7 @@ useEffect(() => {
                 ) 
                 : (    <Row>
                   {products.map(p => (
-                      <Col sm={12} md={6} lg={4} xl={3}>
+                      <Col key={p._id} sm={12} md={6} lg={4} xl={3} >
                           <Product product={p} />
                       </Col>
                   ))}
