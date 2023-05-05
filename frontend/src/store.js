@@ -1,6 +1,6 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import { productListReducer, productDetailsReducer } from './reducers/productReducers';
-import { cartReducer } from './reducers/cardReducers';
+import { cartReducer } from './reducers/cartReducers';
 
 
 

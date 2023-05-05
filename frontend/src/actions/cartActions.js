@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cardConstants";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
 //You can't use useSelection to get data from store to action, so you use getState(not a hook)
 
@@ -17,7 +17,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     },
   });
 
-  //setting the item as 'cartItems' so when getting data from localStorage, the name has to match.
+  //setting the item as 'cartItems'. When getting data from localStorage, the name has to match.
   //saving the cart data into localStorage.
   //stringify is convert a json file into string file. It has to be string when you save the data in localStorage.
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
