@@ -12,7 +12,7 @@ const app = express();
 dotenv.config();
 connectDB();
 
-app.use(express.json())  //get the data from client and convet to json file. 
+app.use(express.json())  //get the data in the form of a JSON from anywhere the client sends you. 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 
