@@ -8,7 +8,7 @@ import { listProducts } from '../actions/productActions' //This is the productAc
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-const HomeScreen = () => {
+const HomeScreen = () => { 
 
 const dispatch = useDispatch()
 //We pass store in  index.js so that is why state is looking at the store 

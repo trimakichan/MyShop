@@ -3,14 +3,18 @@ import dotenv from 'dotenv'
 // Syntacs are almost the same but you have to add .js in the backend folder. 
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 import errorHandler from './middleware/errorMiddleware.js';
+
 
 const app = express();
 // dotenv.config() allows us to connect to the .env file.
 dotenv.config();
 connectDB();
 
+app.use(express.json())  //get the data from client and convet to json file. 
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 app.use(errorHandler)
 
