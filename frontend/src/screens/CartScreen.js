@@ -1,58 +1,44 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate, useParams, useLocation } from "react-router-dom"; //useLocation for query parameter.
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from "react-bootstrap";
-import Message from "../components/Message";
-import { addToCart, removeFromCart } from "../actions/cartActions";
+import React, { useEffect } from 'react'
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
+import Message from '../components/Message'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const CartScreen = () => {
-  const location = useLocation();
+  const location = useLocation()
   const params = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const productId = params.id
 
-  const productId = params.id;
-  //.search because you could have multiple parameters.
-  //Example for split('='). qty = 2 turns into [qty, 2] so you only need 2 which index is 1.
-  //Numuber that is passed in url is string so you need to conver to number.
-  const qty = location.search ? Number(location.search.split("=")[1]) : 1;
+  const qty = location.search ? Number(location.search.split('=')[1]) : 1
 
-  const cart = useSelector((state) => state.cart);
-  console.log(cart);
-  const { cartItems } = cart;
+  const cart = useSelector((state) => state.cart)
+  const {cartItems} = cart
 
   useEffect(() => {
-    //You need to create if statement becasue customers just want to see what's in a cart.
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToCart(productId, qty))
     }
-  }, [dispatch, productId, qty]);
+  }, [dispatch, productId, qty])
 
   const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
-  };
+    dispatch(removeFromCart(id))
+  }
   const checkoutHandler = () => {
-    navigate("/login?redirect=shipping");
-  };
-
+    navigate('/login?redirect=/shipping')
+  }
   return (
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
-          <Message> 
-            Your cart is empty <Link to="/">Go Back</Link>
+          <Message>
+            Your cart is empty <Link to='/'>Go Back</Link>
           </Message>
         ) : (
-          <ListGroup variant="flush">
+          <ListGroup variant='flush'>
             {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
@@ -65,7 +51,7 @@ const CartScreen = () => {
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
                     <Form.Control
-                      as="select"
+                      as='select'
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
@@ -82,11 +68,11 @@ const CartScreen = () => {
                   </Col>
                   <Col md={2}>
                     <Button
-                      type="button"
-                      variant="light"
+                      type='button'
+                      variant='light'
                       onClick={() => removeFromCartHandler(item.product)}
                     >
-                      <i className="fas fa-trash"></i>
+                      <i className='fas fa-trash'></i>
                     </Button>
                   </Col>
                 </Row>
@@ -97,29 +83,32 @@ const CartScreen = () => {
       </Col>
       <Col md={4}>
         <Card>
-          <ListGroup.Item>
-            <h2>
-              Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-              items
-            </h2>
-            $
-            {cartItems.reduce((acc, item) => (acc + item.qty) * item.price, 0)
-              .toFixed(2)}
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Button
-              type="button"
-              className="btn-block"
-              disabled={cartItems.length === 0}
-              onClick={checkoutHandler}
-            >
-              Proceed To Checkout
-            </Button>
-          </ListGroup.Item>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h2>
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                items
+              </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                type='button'
+                className='btn-block'
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                Proceed To Checkout
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
         </Card>
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default CartScreen;
+export default CartScreen
