@@ -20,6 +20,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState()
+  
 
     const config = {
       headers: {
@@ -27,13 +28,15 @@ export const createOrder = (order) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-
+// -----------------------------------------
+// issue is here
     const { data } = await axios.post(`/api/orders`, order, config)
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     })
+    // -------------------------------------
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
@@ -44,6 +47,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     })
   }
 } 
+
 
 export const getOrderDetails = (id) => async (dispatch, getState) => {
   try {
