@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv'
 // Syntacs are almost the same but you have to add .js in the backend folder. 
+import path from 'path';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
